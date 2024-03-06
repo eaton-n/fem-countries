@@ -1,19 +1,17 @@
 import { useEffect, useState } from 'react';
 
-const API_URL = 'https://restcountries.com/v3.1/region/';
+const API_URL = 'https://restcountries.com/v3.1/';
 
-function useFetchCountries(options) {
+function useFetchCountryData(requestUrl) {
 	const [data, setData] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(null);
+
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
 				setLoading(true);
-				const apiQuery =
-					options.length > 0
-						? `${API_URL}${options.region}?fields=${options.fields.join(',')} `
-						: `${API_URL}${options.region}`;
+				const apiQuery = `${API_URL}${requestUrl}`;
 				const res = await fetch(apiQuery);
 				if (!res.ok) {
 					throw new Error(`API request failed with status ${res.status}`);
@@ -28,8 +26,8 @@ function useFetchCountries(options) {
 		};
 
 		fetchData();
-	}, [options]);
+	}, [requestUrl]);
 	return { data, loading, error };
 }
 
-export default useFetchCountries;
+export default useFetchCountryData;

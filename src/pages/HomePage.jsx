@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
-import useFetchCountries from '../hooks/useFetchCountries';
+import useFetchCountryData from '../hooks/useFetchCountryData';
 import CountrySearch from '../components/CountrySearch';
 import RegionFilter from '../components/RegionFilter';
 import CountryCard from '../components/CountryCard';
 
 function HomePage() {
-	const [currentRegion, setCurrentRegion] = useState('Asia');
+	const [currentRegion, setCurrentRegion] = useState();
 	const [regions, setRegions] = useState([
 		'Africa',
 		'America',
@@ -15,43 +15,41 @@ function HomePage() {
 		'Oceania',
 	]);
 
-	const [test, setTest] = useState({
-		region: currentRegion,
-		fields: ['name', 'flags', 'population', 'region', 'capital'],
-	});
+	const [url, setUrl] = useState(
+		`all?fields=name,flags,population,region,capital`
+	);
 
 	useEffect(() => {
-		setTest({
-			region: currentRegion,
-			fields: ['name', 'flags', 'population', 'region', 'capital'],
-		});
+		if (currentRegion) {
+			setUrl(
+				`region/${currentRegion}?fields=name,flags,population,region,capital`,
+				[currentRegion]
+			);
+		}
 	}, [currentRegion]);
 
-	const { data, loading, error } = useFetchCountries(test);
-
-	if (loading) {
-		return <p>Loading</p>;
-	}
-	if (error) {
-		return <p>{error}</p>;
-	}
+	const { data, loading, error } = useFetchCountryData(url);
+	let countryCards = <p>No countries :(</p>;
 	if (data) {
-		const countryCards = data.map(c => {
+		countryCards = data.map(c => {
 			return <CountryCard key={c.name.common} country={c} />;
 		});
-		return (
-			<>
-				<Header />
-				<CountrySearch />
-				<RegionFilter
-					regions={regions}
-					currentRegion={currentRegion}
-					setCurrentRegion={setCurrentRegion}
-				/>
-				{countryCards}
-			</>
-		);
 	}
+
+	return (
+		<>
+			<Header />
+			<CountrySearch />
+			<RegionFilter
+				regions={regions}
+				currentRegion={currentRegion}
+				setCurrentRegion={setCurrentRegion}
+			/>
+			{loading && <p>Loading</p>}
+			{error && <p>{error}</p>}
+			{data && countryCards}
+		</>
+	);
 }
 
 export default HomePage;
