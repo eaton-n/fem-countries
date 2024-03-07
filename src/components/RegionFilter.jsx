@@ -11,6 +11,7 @@ function RegionFilter({ regions, currentRegion, setCurrentRegion }) {
 			<select
 				onChange={e => setCurrentRegion(e.target.value)}
 				value={currentRegion}
+				className='p-4 m-4 shadow-sm w-1/2'
 			>
 				{regionOptions}
 			</select>
