@@ -1,10 +1,21 @@
 import React from 'react';
+import SearchIcon from './SearchIcon';
 
 function CountrySearch() {
 	return (
 		<div>
-			<form action=''>
-				<input type='text' name='' id='' placeholder='Search for a country' />
+			<form
+				action=''
+				className='flex flex-row items-center px-1 py-1 m-4 shadow-sm bg-white'
+			>
+				<SearchIcon />
+				<input
+					type='text'
+					name=''
+					id=''
+					className='px-5 py-3'
+					placeholder='Search for a country'
+				/>
 			</form>
 		</div>
 	);

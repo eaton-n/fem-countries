@@ -25,7 +25,11 @@ function CountryDetailPage() {
 			<CountrySearch />
 			{loading && <p>loading...</p>}
 			{error && <p>{error}</p>}
-			{data && countryData}
+			{data && (
+				<div className='flex flex-col mx-auto  items-center mt-10 w-5/6 '>
+					{countryData}
+				</div>
+			)}
 		</>
 	);
 }

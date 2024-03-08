@@ -37,7 +37,7 @@ function HomePage() {
 	}
 
 	return (
-		<>
+		<div className='bg-gray-50'>
 			<Header />
 			<CountrySearch />
 			<RegionFilter
@@ -47,8 +47,8 @@ function HomePage() {
 			/>
 			{loading && <p>Loading</p>}
 			{error && <p>{error}</p>}
-			{data && countryCards}
-		</>
+			{data && <div className='flex flex-col gap-4 '>{countryCards}</div>}
+		</div>
 	);
 }
 
