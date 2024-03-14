@@ -1,6 +1,15 @@
+import { useEffect, useState } from 'react';
+import useFetchCountryData from '../hooks/useFetchCountryData';
 import BorderCountryLink from './BorderCountryLink';
 
 function CountryCardDetail({ country }) {
+	const [hasBorders, setHasBorders] = useState(country.borders.length > 0);
+	const { data, loading, error } = hasBorders
+		? useFetchCountryData(
+				`alpha?codes=${country.borders.join(',')}&fields=name`
+		  )
+		: { data: null, loading: false, error: null };
+
 	return (
 		<div>
 			<img
@@ -54,13 +63,18 @@ function CountryCardDetail({ country }) {
 			<div className='flex flex-col gap-1 mb-10'>
 				<p className='font-semibold'>Border Countries:</p>
 				<div className='flex gap-2 flex-wrap'>
-					{country.borders ? (
-						country.borders.map(c => (
-							<BorderCountryLink key={c} countryCode={c} />
-						))
-					) : (
-						<p>No border countries</p>
-					)}
+					{loading && <p>Loading...</p>}
+					{error && <p>{error.message}</p>}
+					{data &&
+						data.map(c => (
+							<BorderCountryLink
+								key={c.name.common}
+								countryCode={c.name.common}
+							>
+								{c.name.common}
+							</BorderCountryLink>
+						))}
+					{!hasBorders && <p>No border countries</p>}
 				</div>
 			</div>
 		</div>

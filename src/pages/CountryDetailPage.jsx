@@ -8,16 +8,21 @@ import { useParams } from 'react-router-dom';
 function CountryDetailPage() {
 	const { countryName } = useParams();
 	const [requestUrl, setRequestUrl] = useState(
-		`name/${countryName}?fullText=true`
-		// `name/${countryName}?fields=name,flags,population,region,subregion,capital,currencies,languages,borders,tld`
+		`name/${countryName}?fields=name,flags,population,region,subregion,capital,currencies,languages,borders,tld`
 	);
 	const { data, loading, error } = useFetchCountryData(requestUrl);
-	const [countryData, setCountryData] = useState();
+	const [countryData, setCountryData] = useState(null);
 	useEffect(() => {
 		if (data != null) {
 			setCountryData(<CountryCardDetail country={data[0]} />);
 		}
-	}, [data]);
+	}, [data, countryName]);
+
+	useEffect(() => {
+		setRequestUrl(
+			`name/${countryName}?fields=name,flags,population,region,subregion,capital,currencies,languages,borders,tld`
+		);
+	}, [countryName]);
 
 	return (
 		<>
