@@ -27,6 +27,7 @@ function useFetchCountryData(requestUrl) {
 
 		fetchData();
 	}, [requestUrl]);
+
 	return { data, loading, error };
 }
 
