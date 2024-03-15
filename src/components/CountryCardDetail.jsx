@@ -28,7 +28,10 @@ function CountryCardDetail({ country }) {
 					</span>
 				</p>
 				<p className='font-semibold'>
-					Population: <span className='font-normal'>{country.population}</span>
+					Population:{' '}
+					<span className='font-normal'>
+						{country.population.toLocaleString()}
+					</span>
 				</p>
 				<p className='font-semibold'>
 					Region: <span className='font-normal'>{country.region}</span>

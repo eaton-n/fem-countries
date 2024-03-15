@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import CountryCardDetail from '../components/CountryCardDetail';
-import CountrySearch from '../components/CountrySearch';
 import Header from '../components/Header';
 import useFetchCountryData from '../hooks/useFetchCountryData';
 import { useParams } from 'react-router-dom';
+import BackLink from '../components/BackLink';
 
 function CountryDetailPage() {
 	const { countryName } = useParams();
@@ -27,7 +27,7 @@ function CountryDetailPage() {
 	return (
 		<>
 			<Header />
-			<CountrySearch />
+			<BackLink />
 			{loading && <p>loading...</p>}
 			{error && <p>{error}</p>}
 			{data && (
