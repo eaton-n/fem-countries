@@ -1,7 +1,7 @@
 import React from 'react';
 import SearchIcon from './SearchIcon';
 
-function CountrySearch() {
+function CountrySearch({ filter, setFilter }) {
 	return (
 		<div>
 			<form
@@ -15,6 +15,8 @@ function CountrySearch() {
 					id=''
 					className='px-5 py-3'
 					placeholder='Search for a country'
+					value={filter}
+					onChange={e => setFilter(e.target.value)}
 				/>
 			</form>
 		</div>

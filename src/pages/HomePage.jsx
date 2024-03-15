@@ -19,6 +19,8 @@ function HomePage() {
 		`all?fields=name,flags,population,region,capital`
 	);
 
+	const [filter, setFilter] = useState('');
+
 	useEffect(() => {
 		if (currentRegion) {
 			setUrl(
@@ -29,17 +31,20 @@ function HomePage() {
 	}, [currentRegion]);
 
 	const { data, loading, error } = useFetchCountryData(url);
+
 	let countryCards = <p>No countries :(</p>;
 	if (data) {
-		countryCards = data.map(c => {
-			return <CountryCard key={c.name.common} country={c} />;
-		});
+		countryCards = data
+			.filter(c => c.name.common.toLowerCase().includes(filter))
+			.map(c => {
+				return <CountryCard key={c.name.common} country={c} />;
+			});
 	}
 
 	return (
 		<div className='bg-gray-50'>
 			<Header />
-			<CountrySearch />
+			<CountrySearch filter={filter} setFilter={setFilter} />
 			<RegionFilter
 				regions={regions}
 				currentRegion={currentRegion}
