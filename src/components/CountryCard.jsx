@@ -17,7 +17,9 @@ function CountryCard({ country }) {
 				<div className='flex flex-col gap-1 mb-10'>
 					<p className='font-semibold'>
 						population:{' '}
-						<span className='font-normal'>{country.population}</span>
+						<span className='font-normal'>
+							{country.population.toLocaleString()}
+						</span>
 					</p>
 					<p className='font-semibold'>
 						region: <span className='font-normal'>{country.region}</span>
