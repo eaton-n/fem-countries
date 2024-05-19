@@ -9,13 +9,14 @@ import CountryDetailPage from './pages/CountryDetailPage.jsx';
 
 const router = createBrowserRouter([
 	{
-		path: '/',
+		path: '/fem-countries/',
 		element: <App />,
 		errorElement: <ErrorPage />,
 	},
 	{
 		path: 'countryDetail/:countryName',
 		element: <CountryDetailPage />,
+		// errorElement: <ErrorPage />,
 	},
 ]);
 
